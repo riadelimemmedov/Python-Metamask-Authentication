@@ -20,9 +20,13 @@ function App() {
 
     const { account, chain } = await connectAsync({ connector: new MetaMaskConnector() });
 
+    console.log('Account ', account)
+
     const {data} = await axios.get(`http://localhost:3000/requestChallenge`, {
       params: { address: account, chainId: chain.id },
     });
+
+    console.log('Data requestChallenge ', data)
 
     const message = data.message;
 
@@ -31,6 +35,8 @@ function App() {
     const verification = await axios.get(`http://localhost:3000/verifyChallenge`, {
       params: { message: message, signature: signature },
     });
+
+    console.log('Verification verifyChallenge', verification)
 
     setProfileId(verification?.data?.profileId)
 
