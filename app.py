@@ -2,13 +2,14 @@ from flask import Flask
 from flask import request
 from moralis import auth
 from flask_cors import CORS
+from decouple import config
 
 from datetime import datetime, timedelta, timezone
 
 app = Flask(__name__)
 CORS(app,origins=['*'])
 
-api_key = "YOUR_API_KEY"
+api_key = config('API_KEY')
 
 @app.route('/requestChallenge', methods=["GET"])
 def reqChallenge():
@@ -55,6 +56,7 @@ def verifyChallenge():
         api_key=api_key,
         body=body
     )
+    print('Result body is ', body)
     return result
 
 
